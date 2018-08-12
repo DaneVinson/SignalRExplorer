@@ -1,4 +1,4 @@
-﻿namespace WinformClient
+﻿namespace WinformClient2
 {
     partial class Main
     {

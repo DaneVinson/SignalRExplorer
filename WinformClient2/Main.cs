@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.Connections;
-using Microsoft.AspNetCore.SignalR.Client;
+﻿using Microsoft.AspNet.SignalR.Client;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WinformClient
+namespace WinformClient2
 {
     public partial class Main : Form
     {
@@ -25,14 +24,31 @@ namespace WinformClient
             OutputBuilder = new StringBuilder();
             connectButton.Click += (o, e) => Connect();
             sendButton.Click += (o, e) => SendCurrentMessage();
+            FormClosing += (o, e) => CloseForm();
 
-            MessagesHubConnection = new HubConnectionBuilder()
-                                            .WithUrl($"{SignalRUri}/messages")
-                                            .Build();
-            MessagesHubConnection.On<string, string>("SendToAll", (n, m) =>
+            HubConnection = new HubConnection($"{SignalRUri}/messages");
+            HubConnection.Closed += ConnectionClosed;
+            MessagesHubProxy = HubConnection.CreateHubProxy("MessagesHub");
+            MessagesHubProxy.On<string, string>("SendToAll", (name, message) =>
             {
-                MessageBox.Show($"Name: {n}, Message: {m}");
+                Invoke((Action)(() => OutputBuilder.AppendLine($"Received: name: {name}, message: {message}")));
             });
+        }
+
+        private void CloseForm()
+        {
+            if (HubConnection != null)
+            {
+                HubConnection.Stop(TimeSpan.FromMilliseconds(500));
+                HubConnection.Dispose();
+            }
+        }
+
+        private void ConnectionClosed()
+        {
+            connectButton.Enabled = true;
+            messageTextBox.Enabled = false;
+            sendButton.Enabled = false;
         }
 
         private void Connect()
@@ -40,7 +56,7 @@ namespace WinformClient
             try
             {
                 Cursor = Cursors.WaitCursor;
-                Task.Run(() => MessagesHubConnection.StartAsync()).GetAwaiter().GetResult();
+                Task.Run(() => HubConnection.Start()).GetAwaiter().GetResult();
                 OutputBuilder.AppendLine("Connected to SignarR Hub");
                 connectButton.Enabled = false;
                 messageTextBox.Enabled = true;
@@ -59,12 +75,13 @@ namespace WinformClient
 
         private void SendCurrentMessage()
         {
-            MessagesHubConnection.SendAsync("SendToAll", "WinFormClientX", messageTextBox.Text);
+            MessagesHubProxy.Invoke("SendToAll", "WinFormClientX", messageTextBox.Text);
             messageTextBox.Text = String.Empty;
         }
 
 
-        private readonly HubConnection MessagesHubConnection;
+        private readonly HubConnection HubConnection;
+        private IHubProxy MessagesHubProxy { get; set; }
         private readonly StringBuilder OutputBuilder;
         private readonly string SignalRUri;
     }

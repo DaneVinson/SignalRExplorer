@@ -1,10 +1,9 @@
-﻿{
-  "$schema": "http://json.schemastore.org/launchsettings.json",
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:3466",
+      "applicationUrl": "http://localhost:3206/",
       "sslPort": 0
     }
   },
@@ -12,19 +11,17 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/handshake",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "MessagesApi": {
+    "MessageService": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/handshake",
-      "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "http://localhost:3207/"
     }
   }
 }
