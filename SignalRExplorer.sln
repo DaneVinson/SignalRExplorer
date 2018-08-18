@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinformClient", "WinformCli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageService", "MessageService\MessageService.csproj", "{1E8EC7AA-C7DF-4B50-9233-85DD55E08D35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinformClient2", "WinformClient2\WinformClient2.csproj", "{2AA0DBAB-EAD6-4AC1-A70B-DDC8FF08F394}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{1E8EC7AA-C7DF-4B50-9233-85DD55E08D35}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E8EC7AA-C7DF-4B50-9233-85DD55E08D35}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E8EC7AA-C7DF-4B50-9233-85DD55E08D35}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2AA0DBAB-EAD6-4AC1-A70B-DDC8FF08F394}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2AA0DBAB-EAD6-4AC1-A70B-DDC8FF08F394}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2AA0DBAB-EAD6-4AC1-A70B-DDC8FF08F394}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2AA0DBAB-EAD6-4AC1-A70B-DDC8FF08F394}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
